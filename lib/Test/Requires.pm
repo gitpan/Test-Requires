@@ -1,11 +1,9 @@
 package Test::Requires;
 use strict;
 use warnings;
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 use base 'Test::Builder::Module';
 use 5.008000;
-
-our @QUEUE;
 
 sub import {
     my $class = shift;
@@ -17,20 +15,15 @@ sub import {
         *{"$caller\::test_requires"} = \&test_requires;
     }
 
-    # enqueue the args
+    # test arguments
     if (@_ == 1 && ref $_[0] && ref $_[0] eq 'HASH') {
         while (my ($mod, $ver) = each %{$_[0]}) {
-            push @QUEUE, [$mod, $ver, $caller];
+            test_requires($mod, $ver, $caller);
         }
     } else {
         for my $mod (@_) {
-            push @QUEUE, [$mod, undef, $caller];
+            test_requires($mod, undef, $caller);
         }
-    }
-
-    # dequeue one argument
-    for my $e (@QUEUE) {
-        test_requires(@$e);
     }
 }
 
@@ -51,7 +44,7 @@ sub test_requires {
                 $builder->skip_all(@_);
             } elsif ($builder->has_plan eq 'no_plan') {
                 $builder->skip(@_);
-                if ( $builder->parent ) {
+                if ( $builder->can('parent') && $builder->parent ) {
                     die bless {} => 'Test::Builder::Exception';
                 }
                 exit 0;
@@ -59,7 +52,7 @@ sub test_requires {
                 for (1..$builder->has_plan) {
                     $builder->skip(@_);
                 }
-                if ( $builder->parent ) {
+                if ( $builder->can('parent') && $builder->parent ) {
                     die bless {} => 'Test::Builder::Exception';
                 }
                 exit 0;
@@ -121,6 +114,7 @@ Tokuhiro Matsuno E<lt>tokuhirom @*(#RJKLFHFSDLJF gmail.comE<gt>
 
     kazuho++ # some tricky stuff
     miyagawa++ # original code from t/TestPlagger.pm
+    tomyhero++ # reported issue related older test::builder
 
 =head1 SEE ALSO
 
