@@ -3,17 +3,15 @@ abstract: 'Checks to see if the module can be loaded'
 author:
   - 'Tokuhiro Matsuno <tokuhirom @*(#RJKLFHFSDLJF gmail.com>'
 build_requires:
-  ExtUtils::MakeMaker: 6.59
+  ExtUtils::MakeMaker: '6.59'
 configure_requires:
-  CPAN::Meta: 0
-  CPAN::Meta::Prereqs: 0
-  Module::Build: 0.38
+  ExtUtils::MakeMaker: '6.64'
 dynamic_config: 0
-generated_by: 'Minilla/v0.5.3, CPAN::Meta::Converter version 2.130880'
+generated_by: 'Minilla/v2.1.0, CPAN::Meta::Converter version 2.141520'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
+  version: '1.4'
 name: Test-Requires
 no_index:
   directory:
@@ -24,21 +22,23 @@ no_index:
     - eg
     - examples
     - author
+    - builder
 provides:
   Test::Requires:
     file: lib/Test/Requires.pm
-    version: 0.07
+    version: '0.08'
 requires:
-  Test::Builder::Module: 0
-  Test::More: 0.61
+  Test::Builder::Module: '0'
+  Test::More: '0.61'
   perl: 5.008_001
 resources:
   bugtracker: https://github.com/tokuhirom/Test-Requires/issues
   homepage: https://github.com/tokuhirom/Test-Requires
   repository: git://github.com/tokuhirom/Test-Requires.git
-version: 0.07
+version: '0.08'
 x_contributors:
   - 'Tatsuhiko Miyagawa <miyagawa@bulknews.net>'
   - 'gfx <gfuji@cpan.org>'
   - 'Toby Inkster <mail@tobyinkster.co.uk>'
-  - 'tokuhirom <tokuhirom@gmail.com>'
+  - 'Neil Bowers <neil@bowers.com>'
+  - 'Tokuhiro Matsuno <tokuhirom@gmail.com>'
